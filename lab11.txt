@@ -1,0 +1,6 @@
+db.database.find();
+db.database.find({}, {_id:1,name:1,borough:1,cuisine:1});
+db.database.find({"borough":"Bronx"}).limit(5);
+db.database.find({$or:[{cuisine:{$nin: ["American ", "Chinese"]}}, {name: /^Wil/}]}).limit(5);
+db.database.find({name: /mon/}, {_id:0, name:1, borough:1, longitude:1, attitude:1, cuisine:1});
+db.database.find({$or: [{borough:"Staten Island"}, {borough:"Queens"}, {borough:"Bronx"}, {borough:"Brooklyn"}]}, {_id:1, name:1, borough:1, cuisine:1});
