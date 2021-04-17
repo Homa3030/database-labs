@@ -1,0 +1,32 @@
+Part 1:
+CREATE (a:Fighter {name: "Khabib Nurmagomedov",weight:"155"}),
+(b:Fighter {name: "Rafael Dos Anjos",weight:"155"}),
+(c:Fighter {name: "Jon Jones",weight:"205"}),
+(d:Fighter {name: "Michael Bisping ",weight:"185"}),
+(e:Fighter {name: "Brandon Vera",weight:"205"}),
+(f:Fighter {name: "Frank Mir",weight:"230"}),
+(g:Fighter {name: "Neil Magny",weight:"170"}),
+(h:Fighter {name: "Matt Hamill",weight:"185"}),
+(i:Fighter {name: "Daniel Cormier",weight:"205"}),
+(j:Fighter {name: "Brock Lesnar",weight:"230"}), 
+(k:Fighter {name: "Kelvin Gastelum",weight:"185"}),
+(a)-[:beats]->(b),
+(b)-[:beats]->(g),
+(c)-[:beats]->(i),
+(d)-[:beats]->(h),
+(c)-[:beats]->(e),
+(e)-[:beats]->(f),
+(f)-[:beats]->(j),
+(g)-[:beats]->(k),
+(k)-[:beats]->(d),
+(d)-[:beats]->(h),
+(d)-[:beats]->(k),
+(h)-[:beats]->(c)
+
+Part 2:
+1. match (p:Fighter)-[:beats]->(pp:Fighter) with p, pp, count(pp) as countpp where p.weight in ["155", "170", "185"] and countpp > 0 return p;
+2. match (p:Fighter)-[:beats]->(pp:Fighter)-[:beats]->(p) with p, pp, count(p) as countp, count(pp) as countpp where countp = 1 and countpp = 1 return p;
+3. match (p:Fighter)-[:beats*2..]->(pp:Fighter) where p.name = "Khabib Nurmagomedov" return distinct pp;
+4.  1)match (p:Fighter) where not (p)-[:beats]->() return p;
+    2)match (p:Fighter) where not (p)<-[:beats]-() return p;
+5.  match (p:Fighter) set p.record = 0;
